@@ -9,12 +9,28 @@
   }
 }
 
+.new-expense-form {
+  background-color: #333;
+  width: 60%;
+  max-height: 80%;
+  overflow-y: auto;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 30px;
+  border-radius: 30px;
+  z-index: 1;
+  box-shadow: 10px 10px 50px #000;
+  top: 10%;
+}
+
 .filter-type a {
   display: block;
   padding: 7px 15px;
 }
 
 a.list-group-item { color: #808487; }
+a.list-group-item.visited { background-color: $link-color; color: #fff }
 
 .summary-box {
   padding: 10px;

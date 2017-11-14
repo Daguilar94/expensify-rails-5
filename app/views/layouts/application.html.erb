@@ -7,6 +7,7 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => 'reload' %>
+    <!-- <script type="text/javascript" src="canvasjs.min.js"></script> -->
   </head>
 
   <body>
@@ -25,8 +26,8 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li class="<%= 'active' if @tab == :dashboard %>"><%= link_to "Dashboard", root_path %></li>
-            <li class="<%= 'active' if @tab == :expenses %>"><%= link_to "Expenses", expenses_path %></li>
+            <li class="<%= 'active' if @tab == :dashboard %>"><%= link_to "Dashboard", root_path, data:{turbolinks: "false"}%></li>
+            <li class="<%= 'active' if @tab == :expenses %>"><%= link_to "Expenses", expenses_path%></li>
           </ul>
         </div>
       </div>

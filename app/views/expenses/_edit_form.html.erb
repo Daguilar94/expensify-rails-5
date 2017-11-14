@@ -1,0 +1,43 @@
+<div>
+  <%=form_for @expense, html: {class: 'new-expense-form'}, remote: true do |f| %>
+  <h2>Expense</h2>
+  <% if !@expense.errors.messages.empty?%>
+  <% @expense.errors.full_messages.each do |error| %>
+    <p1><%= error%> </p1> <br>
+  <%end%>
+<% end %>
+  <hr>
+  <div class="row">
+    <div class="col-xs-12 col-md-6 col-lg-6">
+      <%=f.label :type_id%>  <br>
+      <%= f.collection_select(:type_id, Type.all, :id, :name, {}, {:class => 'form-control'}) %>
+    </div>
+    <div class="col-xs-12 col-md-6 col-lg-6">
+      <%=f.label :date%> <br>
+      <%=f.date_field :date, class: 'form-control'%>
+    </div>
+  </div> <br>
+  <div class="row">
+    <div class="col-xs-12 col-md-12 col-lg-12">
+      <%=f.label :concept%> <br>
+      <%=f.text_field :concept, class: 'form-control'%>
+    </div>
+  </div> <br>
+  <div class="row">
+    <div class="col-xs-12 col-md-6 col-lg-6">
+      <%=f.label :category_id%> <br>
+      <%= f.collection_select(:category_id, Category.all, :id, :name, {}, {:class => 'form-control'}) %>
+    </div>
+    <div class="col-xs-12 col-md-6 col-lg-6">
+      <%=f.label :amount%> <br>
+      <%=f.number_field :amount, class: 'form-control'%>
+    </div>
+  </div> <br>
+  <div class="row">
+    <div class="col-xs-12 col-md-6 col-md-offset-6 col-lg-5 col-lg-offset-7">
+      <button type=button class="btn btn-default cancel-new-expense">Cancel</button>
+    <%=f.submit 'Edit expense', class: "btn btn-primary create-expense"%>
+    </div>
+  </div>
+  <% end %>
+</div>

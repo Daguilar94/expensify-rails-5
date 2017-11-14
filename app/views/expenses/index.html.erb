@@ -1,21 +1,69 @@
+<% flash.each do |name, msg| -%>
+<div class="alert alert-success alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <%= msg %>
+</div>
+<% end %>
 <div class="container">
   <div class="row">
     <div class="col-md-3">
       <h4 class="filter-header">Transaction Type <span>Choose to filter</span></h4>
+
       <div class="list-group filter-type">
         <% @types.each do |type|%>
-        <%= link_to type.name, expenses_path(type_id: type.id), class: 'list-group-item', remote: true %>
+        <%= link_to type.name, expenses_path, class: 'list-group-item', tid: type.id%>
         <% end %>
       </div>
 
-      <h4 class="filter-header">Categoría <span>Selecciona para filtrar</span></h4>
+      <h4 class="filter-header">Transaction Category <span>Choose to filter</span></h4>
+
       <div class="list-group filter-category">
         <% @categories.each do |category|%>
-        <%= link_to category.name, expenses_path(category_id: category.id), class: 'list-group-item', remote: true %>
+        <%= link_to category.name, expenses_path, class: 'list-group-item', cid: category.id%>
         <% end %>
       </div>
     </div>
-    <div class="col-md-9 index-data">
-      <%=render("form")%>
+    <div class='new-indicator'></div>
+    <div class="col-md-9">
+      <div class="row summary-container" style="margin-top: 10px;">
+        <div class="summary-box col-md-4 text-center">
+          <div class="summary-value">
+            <%total = 0%>
+            <%@expenses.each do |i| %>
+            <%total += i.amount%>
+            <%end%>
+            <%=total%>
+          </div>
+          <div class="summary-label">Total</div>
+        </diV>
+        <div class="summary-box col-md-4 text-center">
+          <div class="summary-value"><%= tansactions = @expenses.count %></div>
+          <div class="summary-label">Transactions</div>
+        </div>
+        <div class="summary-box col-md-4 text-center">
+          <div class="summary-value"><%=tansactions == 0 ? 0 : total/tansactions %></div>
+          <div class="summary-label">Average</div>
+        </div>
+      </div>
+
+      <div class="row" style="margin-top: 20px;">
+        <div class="col-md-12">
+          <%= link_to "<span class='glyphicon glyphicon-plus'></span> New Expense".html_safe, new_expense_path, class: 'btn btn-success pull-left', remote: true %>
+          <!-- <a href="#" class="btn btn-success pull-left"> New Expense</a> -->
+          <h4 class="dropdown pull-right">
+            <button type="button" class="dropdown-toggle btn btn-link" data-toggle="dropdown"><%= @current_month.strftime("%B %Y") %><span class="caret"></span></button>
+            <ul class="dropdown-menu" role="menu">
+              <% @months.each_with_index do |month, index| %>
+              <li role="presentation"><%= link_to month.strftime("%B %Y"), expenses_path, month_index: index, class: 'month-item'  %></li>
+              <% end %>
+            </ul>
+          </h4>
+        </div>
+      </div>
+      <div class="index-data">
+        <%=render("form")%>
+      </div>
     </div>
   </div>
+</div>
+</div>

@@ -1,38 +1,3 @@
-<div class="row" style="margin-top: 10px;">
-  <div class="summary-box col-md-4 text-center">
-    <div class="summary-value">
-      <%total = 0%>
-      <%@expenses.each do |i| %>
-      <%total += i.amount%>
-      <%end%>
-      <%=total%>
-    </div>
-    <div class="summary-label">Total</div>
-  </diV>
-  <div class="summary-box col-md-4 text-center">
-    <div class="summary-value"><%= tansactions = @expenses.count %></div>
-    <div class="summary-label">Transactions</div>
-  </div>
-  <div class="summary-box col-md-4 text-center">
-    <div class="summary-value"><%=total/tansactions%></div>
-    <div class="summary-label">Average</div>
-  </div>
-</div>
-
-<div class="row" style="margin-top: 20px;">
-  <div class="col-md-12">
-    <a href="#" class="btn btn-success pull-left"><span class="glyphicon glyphicon-plus"></span> New Expense</a>
-    <h4 class="dropdown pull-right">
-      <button type="button" class="dropdown-toggle btn btn-link" data-toggle="dropdown">April 2016 <span class="caret"></span></button>
-      <ul class="dropdown-menu" role="menu">
-        <li role="presentation"><a href="#">April 2016</a></li>
-        <li role="presentation"><a href="#">March 2016</a></li>
-        <!-- more months -->
-      </ul>
-    </h4>
-  </div>
-</div>
-
 <table id="expenses-table" class="table table-hover" style="margin-top: 20px;">
   <thead>
     <tr>
@@ -61,12 +26,12 @@
       <td class="text-right" style="width: 170px;">
         <div class="amount"><%=  expense.amount %></div>
         <div class="actions">
-          <a href="#"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-          <a href="#"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+          <%=link_to "<span class='glyphicon glyphicon-edit'></span> edit".html_safe, edit_expense_path(expense.id), remote: true%>
+          <%=link_to "<span class='glyphicon glyphicon-trash'><span> delete".html_safe, expense_path(expense.id),:data => {:confirm => "You sure?",:method => "delete", remote: true} %>
+          <!-- <a href="#"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+          <a href="#"><span class="glyphicon glyphicon-trash"></span> Delete</a> -->
         </td>
       </tr>
       <% end %>
-
     </tbody>
   </table>
-</div>

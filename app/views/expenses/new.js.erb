@@ -1,0 +1,4 @@
+$('.new-indicator').html('<%= j render("new_form")%>')
+$('.cancel-new-expense').on('click', () => {
+  $('.new-expense-form').fadeOut(300)
+})

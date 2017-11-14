@@ -1,19 +1,21 @@
-<div class="container">
+<!-- <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script> -->
+
+<div class="container form-container">
   <div class="row">
     <div class="total-box col-md-3">
-      $200,000
+      $<%=@today_amount%>
       <span>HOY</span>
     </div>
     <div class="total-box col-md-3">
-      $140,000
+      $<%=@yesterday_amount%>
       <span>AYER</span>
     </div>
     <div class="total-box col-md-3">
-      $7,500,000
+      $<%= @actual_month_amount %>
       <span>ESTE MES</span>
     </div>
     <div class="total-box col-md-3">
-      $6,200,000
+      $<%=@last_month_amount%>
       <span>MES PASADO</span>
     </div>
   </div>
@@ -23,14 +25,18 @@
       <div class="panel panel-default">
         <div class="panel-heading">Últimos 6 Meses</div>
         <div class="panel-body">
+          <%= content_tag :div, class: "monthly", data: {chart: @options_1} do%>
+          <%end%>
           <div id="expenses-chart" style="height: 250px;"></div>
         </div>
       </div>
     </div>
     <div class="box col-md-6">
       <div class="panel panel-default">
-        <div class="panel-heading">Por Día</div>
+        <div class="panel-heading">Por Día Mes Actual</div>
         <div class="panel-body">
+          <%= content_tag :div, class: "daily", data: {chart: @options_2} do %>
+          <%end%>
           <div id="daily-expenses-chart" style="height: 250px;"></div>
         </div>
       </div>
@@ -42,6 +48,8 @@
       <div class="panel panel-default">
         <div class="panel-heading">Por Categoría</div>
         <div class="panel-body">
+          <%= content_tag :div, class: "category", data: {chart: @options_3} do %>
+          <%end%>
           <div id="category-chart" style="height: 250px;"></div>
         </div>
       </div>
@@ -50,6 +58,8 @@
       <div class="panel panel-default">
         <div class="panel-heading">Acumulado</div>
         <div class="panel-body">
+          <%= content_tag :div, class: "accum", data: {chart: @options_4} do %>
+          <%end%>
           <div id="month-acc" style="height: 250px;"></div>
         </div>
       </div>
