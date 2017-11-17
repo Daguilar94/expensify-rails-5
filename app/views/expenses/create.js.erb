@@ -1,0 +1,5 @@
+$('.new-indicator').fadeOut(300)
+
+$('tbody').prepend(`<%=j render('new_expense')%>`)
+
+$('.alert-container').prepend('<%=j render ("alert")%>')

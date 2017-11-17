@@ -15,19 +15,15 @@ class ExpensesController < ApplicationController
     year = @current_month.year
 
     if category_id == nil && type_id == nil
-      puts 'SIN FILTRO'
       @expenses = Expense.find_year(year).find_month(month).order(date: :desc)
     end
     if (category_id != nil && type_id != nil)
-      puts "CATEGORY:#{category_id} Y TYPE: #{type_id} AMBOS"
       @expenses = Expense.find_year(year).find_month(month).find_category(category_id).find_type(type_id).order(date: :desc)
     end
     if (category_id != nil && type_id == nil)
-      puts "CATEGORY:#{category_id} Y TYPE: #{type_id} SOLO CATEGORY"
       @expenses = Expense.find_year(year).find_month(month).find_category(category_id.to_i).order(date: :desc)
     end
     if (category_id == nil && type_id != nil)
-      puts "CATEGORY:#{category_id} Y TYPE: #{type_id} SOLO TYPE"
       @expenses = Expense.find_year(year).find_month(month).find_type(type_id.to_i).order(date: :desc)
     end
 
@@ -47,14 +43,18 @@ class ExpensesController < ApplicationController
   end
 
   def create
+    @categories = Category.all
+    @types = Type.all
     @expense = Expense.new safe_params
+    @alert_msg = ''
     if @expense.save
-      flash[:success] = "Expense successfully created"
-      puts 'Se creó el expense'
-      flash[:success] = "Expense successfully created"
-      redirect_to expenses_path
+      @alert_msg = 'Expense successfully created'
     else
       render :new
+    end
+    respond_to do |format|
+      format.js
+      format.html
     end
   end
 
@@ -67,22 +67,30 @@ class ExpensesController < ApplicationController
   end
 
   def update
-    @expense = Expense.new safe_params
-    if @expense.save
-      flash[:success] = "Expense successfully created"
-      puts 'Se editó el expense'
-      flash[:success] = "Expense successfully updated"
-      redirect_to expenses_path
+    @categories = Category.all
+    @types = Type.all
+    @alert_msg = ''
+    @expense = Expense.find params[:id]
+    if @expense.update safe_params
+      @alert_msg = 'Expense successfully updated'
+      # flash[:success] = "Expense successfully updated"
+      # redirect_to expenses_path
     else
-      render :new
+      render :edit
+    end
+    respond_to do |format|
+      format.js
+      format.html
     end
   end
 
   def destroy
+    @alert_msg = ''
     @expense = Expense.find params[:id]
     @expense.destroy
-    flash[:success] = "Expense successfully deleted"
-    redirect_to expenses_path
+    @alert_msg = 'Expense successfully deleted'
+    # flash[:success] = "Expense successfully deleted"
+    # redirect_to expenses_path
   end
 
   protected
