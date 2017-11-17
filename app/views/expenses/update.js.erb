@@ -1,4 +1,4 @@
-$('.new-indicator').fadeOut(300)
+$(".edit-form-modal").fadeOut(300)
 $('tbody').find('[data-id=<%=@expense.id%>]').fadeOut(300)
 $('tbody').prepend(`<%=j render('new_expense')%>`)
 $('.alert-container').prepend('<%=j render ("alert")%>')

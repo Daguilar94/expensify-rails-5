@@ -1,4 +1,4 @@
-<div>
+<div class="new-form-modal">
   <%=form_for @expense, html: {class: 'new-expense-form'}, remote: true do |f| %>
   <h2>Expense</h2>
   <% if !@expense.errors.messages.empty?%>

@@ -9,7 +9,7 @@
   </thead>
   <tbody>
     <% @expenses.each do |expense| %>
-    <tr data-id= '<%= expense.id%>'>
+    <tr data-id='<%= expense.id%>'>
       <td class="date">
         <div class="day"><%= expense.date.strftime('%d')%></div>
         <div class="month"><%= expense.date.strftime('%b')%></div>
