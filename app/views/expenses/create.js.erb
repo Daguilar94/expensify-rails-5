@@ -1,5 +1,29 @@
 $('.new-form-modal').fadeOut(300)
 
-$('tbody').prepend(`<%=j render('new_expense')%>`)
+const viewer_month = $('.dropdown-toggle').text()
+const expense_month = '<%=@expense.date.strftime("%B %Y")%>'
+
+if (viewer_month === expense_month) {
+
+  const visited_type = $('.filter-type .visited').text()
+  const visited_category = $('.filter-category .visited').text()
+
+  if ((visited_type == "" && visited_category == "") ||
+  (visited_type == '<%=@expense.type.name%>' && visited_category == "") ||
+  (visited_category == '<%=@expense.category.name%> '&& visited_type == "") ||
+  (visited_category == '<%=@expense.category.name%>' && visited_type == '<%=@expense.type.name%>'))
+  {
+
+    $('tbody').prepend(`<%=j render('new_expense')%>`)
+    const total = parseInt($('.total').text()) + <%=@expense.amount%>
+    const quantity = parseInt($('.quantity').text()) + 1
+    const average = total/quantity
+    $('.total').text(`${total}`)
+    $('.quantity').text(`${quantity}`)
+    $('.average').html(average.toFixed(2))
+
+  }
+}
 
 $('.alert-container').prepend('<%=j render ("alert")%>')
+$('.alert-container').fadeIn(600)

@@ -71,10 +71,10 @@ class ExpensesController < ApplicationController
     @types = Type.all
     @alert_msg = ''
     @expense = Expense.find params[:id]
+    @old_amount = @expense.amount
     if @expense.update safe_params
       @alert_msg = 'Expense successfully updated'
       # flash[:success] = "Expense successfully updated"
-      # redirect_to expenses_path
     else
       render :edit
     end
@@ -90,7 +90,6 @@ class ExpensesController < ApplicationController
     @expense.destroy
     @alert_msg = 'Expense successfully deleted'
     # flash[:success] = "Expense successfully deleted"
-    # redirect_to expenses_path
   end
 
   protected

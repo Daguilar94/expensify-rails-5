@@ -1,4 +1,29 @@
 $(".edit-form-modal").fadeOut(300)
 $('tbody').find('[data-id=<%=@expense.id%>]').fadeOut(300)
-$('tbody').prepend(`<%=j render('new_expense')%>`)
+
+const viewer_date = $('.dropdown-toggle').text()
+const expense_date = '<%=@expense.date.strftime("%B %Y")%>'
+
+if (viewer_date === expense_date) {
+
+  const total = parseInt($('.total').text()) - <%=@old_amount%> + <%=@expense.amount%>
+  const quantity = parseInt($('.quantity').text())
+  const average = total/quantity
+
+  $('tbody').prepend(`<%=j render('new_expense')%>`)
+  $('.total').text(`${total}`)
+  $('.quantity').text(`${quantity}`)
+  $('.average').html(average.toFixed(2))
+
+} else {
+  const total = parseInt($('.total').text()) - <%=@old_amount%>
+  const quantity = parseInt($('.quantity').text()) - 1
+  const average = total/quantity
+
+  $('.total').text(`${total}`)
+  $('.quantity').text(`${quantity}`)
+  $('.average').html(average.toFixed(2))
+}
+
 $('.alert-container').prepend('<%=j render ("alert")%>')
+$('.alert-container').fadeIn(600)

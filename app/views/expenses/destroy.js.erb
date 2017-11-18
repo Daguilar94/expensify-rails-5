@@ -1,2 +1,10 @@
 $('tbody').find('[data-id=<%=@expense.id%>]').fadeOut(300)
+
+const total = parseInt($('.total').text()) - <%=@expense.amount%>
+const quantity = parseInt($('.quantity').text()) - 1
+const average = total/quantity
+$('.total').text(`${total}`)
+$('.quantity').text(`${quantity}`)
+$('.average').html(average.toFixed(2))
+
 $('.alert-container').prepend('<%=j render ("alert")%>')
