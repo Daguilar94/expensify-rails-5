@@ -1,7 +1,10 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
+type_1:
+  name: 'Compra'
 
-two:
-  name: MyString
+type_2:
+  name: 'Retiro'
+
+type_3:
+  name: 'transferencia'

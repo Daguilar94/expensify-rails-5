@@ -1,7 +1,10 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
+category_1:
+  name: 'Food'
 
-two:
-  name: MyString
+category_2:
+  name: 'Car'
+
+category_3:
+  name: 'Gym'

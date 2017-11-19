@@ -1,15 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  type: one
-  category: one
-  concept: MyText
-  date: 2017-10-01
-  amount: 1
+expense_1:
+  concept: 'Fred is in da house'
+  amount: 11111
+  category: category-1
+  type: type-1
+  date: 2017-11-11
 
-two:
-  type: two
-  category: two
-  concept: MyText
-  date: 2017-10-01
-  amount: 1
+expense_2:
+  concept: 'Lets Dance'
+  amount: 22222
+  category: category-2
+  type: type-2
+  date: 2010-11-12
