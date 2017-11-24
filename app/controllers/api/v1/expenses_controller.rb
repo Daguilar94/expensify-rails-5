@@ -7,20 +7,18 @@ module Api
       def index
         type_id = params[:type_id] unless params[:type_id] == ''
         category_id = params[:category_id] unless params[:category_id] == ''
-        month = params[:month]
-        year = params[:year]
 
         if category_id == nil && type_id == nil
-          expenses = Expense.find_year(year).find_month(month).order(date: :desc)
+          expenses = Expense.all.order(date: :desc)
         end
         if (category_id != nil && type_id != nil)
-          expenses = Expense.find_year(year).find_month(month).find_category(category_id).find_type(type_id).order(date: :desc)
+          expenses = Expense.find_category(category_id).find_type(type_id).order(date: :desc)
         end
         if (category_id != nil && type_id == nil)
-          expenses = Expense.find_year(year).find_month(month).find_category(category_id.to_i).order(date: :desc)
+          expenses = Expense.find_category(category_id.to_i).order(date: :desc)
         end
         if (category_id == nil && type_id != nil)
-          expenses = Expense.find_year(year).find_month(month).find_type(type_id.to_i).order(date: :desc)
+          expenses = Expense.find_type(type_id.to_i).order(date: :desc)
         end
         render json: expenses
       end
@@ -51,7 +49,7 @@ module Api
 
       private
       def safe_params
-        params.require(:expense).permit(:type_id, :date, :category_id, :concept, :amount, :month, :year)
+        params.require(:expense).permit(:type_id, :date, :category_id, :concept, :amount)
       end
     end
   end
