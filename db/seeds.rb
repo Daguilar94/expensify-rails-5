@@ -32,7 +32,7 @@ t4.save
   a = Expense.create(
     type_id: rand(1..Type.count),
     category_id: rand(1..Category.count),
-    concept: Faker::Lorem.characters(10),
+    concept: Faker::HowIMetYourMother.quote,
     date: Faker::Time.between(DateTime.now, DateTime.now.months_ago(6)),
     amount: Faker::Number.between(1, 5000000)
   )
