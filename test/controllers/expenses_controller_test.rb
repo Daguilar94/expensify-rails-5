@@ -25,11 +25,10 @@ class ExpensesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  # test "Should create an expense" do
-  #   assert_difference "Expense.count" do
-  #     post '/expenses', params: { expense: {type_id: 1, category_id: 2, date: '11/26/2017', amount: 3000, concept: 'Yao Ming'}}, xhr: true
-  #   end
-  #   post '/expenses'
-  # end
+  test "Should create an expense" do
+    assert_difference "Expense.count" do
+      post '/expenses', params: { expense: {type_id: 1, category_id: 2, date: '11/26/2017', amount: 3000, concept: 'Yao Ming'}}, xhr: true
+    end
+  end
 
 end
