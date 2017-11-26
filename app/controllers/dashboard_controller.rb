@@ -34,7 +34,7 @@ class DashboardController < ApplicationController
       day_totals_current_month[i] = 0
     end
 
-    DateTime.now.months_ago(6).at_end_of_month.day.times do |i|
+    DateTime.now.months_ago(1).at_end_of_month.day.times do |i|
       day_totals_last_month[i] = 0
     end
 
@@ -42,7 +42,7 @@ class DashboardController < ApplicationController
       category_totals[i] = 0
     end
 
-    #Fill month_totals and day_totals_current_month, category_totals and day_totals_last_month variables
+    #Fill month_totals, day_totals_current_month, category_totals and day_totals_last_month variables
 
     6.times do |i|
       date_tree[last_6_months[i].strftime('%b-%Y')].each do |element|
@@ -157,9 +157,9 @@ class DashboardController < ApplicationController
           interval: 10000000,
           labelFontColor: "#999",
           gridColor: "#555",
-        gridThickness: 1,
-        lineThickness: 1,
-        lineColor: "#555"
+          gridThickness: 1,
+          lineThickness: 1,
+          lineColor: "#555"
         },
         data:
         [

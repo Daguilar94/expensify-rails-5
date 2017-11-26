@@ -29,7 +29,7 @@ class ExpensesController < ApplicationController
 
     respond_to do |format|
       format.js
-      format.html { render 'index'}
+      format.html {render 'index'}
     end
 
   end

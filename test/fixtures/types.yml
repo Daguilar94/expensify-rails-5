@@ -8,3 +8,6 @@ type_2:
 
 type_3:
   name: 'transferencia'
+
+type_4:
+  name: 'pago'
