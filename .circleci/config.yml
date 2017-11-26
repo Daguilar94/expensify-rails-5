@@ -2,7 +2,12 @@ version: 2
 jobs:
    build:
      docker:
-       - image: circleci/<Ruby>:<2.4>
+       - image: circleci/Ruby:<2.4>
      steps:
        - checkout
-       - run: echo "hello world"
+         - run:
+             name: Greeting
+             command: echo Hello, world.
+         - run:
+             name: Print the Current Time
+             command: date
