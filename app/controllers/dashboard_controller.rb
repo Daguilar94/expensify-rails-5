@@ -8,7 +8,7 @@ class DashboardController < ApplicationController
 
     last_6_months = generate_last_n_months (6)
     last_6_months_expenses = Expense.last_6_months # petición 1 a la base de datos
-    all_types = Type.all # petición 1 a la base de datos
+    all_types = Type.all # petición 2 a la base de datos
     all_categories = Category.all # petición 3 a la base de datos
     actual_accum = 0
     last_accum = 0
