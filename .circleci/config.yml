@@ -1,17 +1,8 @@
 version: 2
 jobs:
-  build:
-    docker:
-      - image: circleci/Ruby:2.4
-      - image: postgres:9.6
-      steps:
-        - checkout
-        test:
-          docker:
-            - image: circleci/node:4.8.2
-            - image: mongo:3.4.4
-            steps:
-              - checkout
-              - run:
-                name: Test
-                command: rails test
+   build:
+     docker:
+       - image: circleci/<language>:<version TAG>
+     steps:
+       - checkout
+       - run: echo "hello world"
