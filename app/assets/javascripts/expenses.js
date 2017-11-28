@@ -10,7 +10,7 @@ $(document).ready(function() {
     build_url()
     $.ajax({
       type: "GET",
-      url: `/expenses?type_id=${url.type}&category_id=${url.category}&date=${url.date}`,
+      url: "/expenses?type_id=" + url.type + "&category_id=" + url.category + "&date=" + url.date,
       format: 'js'
     })
     .done(function(data) {
@@ -25,7 +25,7 @@ $(document).ready(function() {
     build_url()
     $.ajax({
       type: "GET",
-      url: `/expenses?type_id=${url.type}&category_id=${url.category}&date=${url.date}`,
+      url: "/expenses?type_id=" + url.type + "&category_id=" + url.category + "&date=" + url.date,
       format: 'js'
     }).done(function(data) {
     })
