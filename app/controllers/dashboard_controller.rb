@@ -17,10 +17,11 @@ class DashboardController < ApplicationController
     day_totals_current_month = []
     day_totals_last_month = []
     category_totals = []
+    day_totals_by_type = {}
     @actual_month_amount = 0
     @last_month_amount = 0
 
-    #Set up month_totals, day_totals_current_month, day_totals_last_month, category_totals and date_tree variables
+    #Set up month_totals, day_totals_current_month, day_totals_last_month, day_totals_by_type, category_totals and date_tree variables
 
     last_6_months.each do |m|
       date_tree[m.strftime('%b-%Y')] = last_6_months_expenses.find_all {|ex| ex.date.month == m.month }
@@ -32,6 +33,10 @@ class DashboardController < ApplicationController
 
     DateTime.now.day.times do |i|
       day_totals_current_month[i] = 0
+      day_totals_by_type[i+1] = {}
+      all_types.length.times do |t|
+        day_totals_by_type[i+1][t+1] = 0
+      end
     end
 
     DateTime.now.months_ago(1).at_end_of_month.day.times do |i|
@@ -42,7 +47,7 @@ class DashboardController < ApplicationController
       category_totals[i] = 0
     end
 
-    #Fill month_totals, day_totals_current_month, category_totals and day_totals_last_month variables
+    #Fill month_totals, day_totals_current_month, day_totals_by_type, category_totals and day_totals_last_month variables
 
     6.times do |i|
       date_tree[last_6_months[i].strftime('%b-%Y')].each do |element|
@@ -57,6 +62,10 @@ class DashboardController < ApplicationController
           @last_month_amount += element.amount
         end
       end
+    end
+
+    date_tree[last_6_months[0].strftime('%b-%Y')].each do |expense|
+      day_totals_by_type[expense.date.day][expense.type_id] = expense.amount
     end
 
     @today_amount = day_totals_current_month[DateTime.now.day-1]
@@ -95,6 +104,9 @@ class DashboardController < ApplicationController
     @options_2 = {
       animationEnabled: true,
       backgroundColor: '#303336',
+      legend: {
+        fontColor: "#999"
+      },
       axisX: {
         interval: 1,
         labelFontColor: "#999",
@@ -195,15 +207,21 @@ class DashboardController < ApplicationController
       end
       @options_1 = @options_1.to_json
 
-      #Build data object for chart 2 and part of the chart 4
-      day_totals_current_month.each_with_index do |element, index|
-        actual_accum += element
-        point = {label: index+1, y: element}
-        point1 = {label: index+1, y: actual_accum}
-        @options_2[:data][0][:dataPoints] << point
-        @options_4[:data][0][:dataPoints] << point1
+      #Build data object for chart 2 
+
+      all_types.length.times do |i|
+        data_helper =  {
+          type: "stackedColumn",
+          name: "#{all_types[i].name}",
+          showInLegend: true,
+        }
+        dataPoints = generate_dataPoints_chart_2(i, DateTime.now.day, day_totals_by_type)
+        data_helper[:dataPoints] = dataPoints
+        @options_2[:data] << data_helper
       end
       @options_2 = @options_2.to_json
+
+
 
       #Build data object for chart 3
       category_totals.each_with_index do |element, index|
@@ -214,16 +232,20 @@ class DashboardController < ApplicationController
       @options_3 = @options_3.to_json
 
       #Build data object for chart 4
+
+      day_totals_current_month.each_with_index do |element, index|
+        actual_accum += element
+        point1 = {label: index+1, y: actual_accum}
+        @options_4[:data][0][:dataPoints] << point1
+      end
+
       day_totals_last_month.each_with_index do |element, index|
         last_accum += element
         point = {label: index+1, y: last_accum}
         @options_4[:data][1][:dataPoints] << point
       end
 
-      # respond_to do |format|
-      #   format.html
-      #   format.js
-      # end
+      @options_4 = @options_4.to_json
 
     end
 
@@ -234,6 +256,14 @@ class DashboardController < ApplicationController
       n = l6months.length
       n.times do |i|
         result << {label: l6months[i].strftime('%b-%Y'), y: totals[l6months[i].strftime('%b-%Y')][typeId+1]}
+      end
+      result
+    end
+
+    def generate_dataPoints_chart_2 (typeId, month_days, totals)
+      result = []
+      month_days.times do |i|
+        result << {x: i+1, y: totals[i+1][typeId+1]}
       end
       result
     end
