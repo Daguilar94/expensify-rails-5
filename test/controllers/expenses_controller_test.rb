@@ -21,12 +21,12 @@ class ExpensesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "post create: is successful" do
-    post '/expenses', params: { expense: {type_id: 1, category_id: 2, date: '11/26/2017', amount: 3000, concept: 'Yao Ming'}}, xhr: true
+    post '/expenses', params: { expense: {type_id: 1, category_id: 2, date: '2017-11-26', amount: 3000, concept: 'Yao Ming'}}, xhr: true
     assert_response :success
   end
 
   test "patch update: is successful" do
-    patch "/expenses/#{expenses(:expense_1).id}", params: { expense: {type_id: 1, category_id: 2, date: '11/26/2017', amount: 5000, concept: 'Try-testing'}}, xhr: true
+    patch "/expenses/#{expenses(:expense_1).id}", params: { expense: {type_id: 1, category_id: 2, date: '2017-11-26', amount: 5000, concept: 'Try-testing'}}, xhr: true
     assert_response :success
   end
 

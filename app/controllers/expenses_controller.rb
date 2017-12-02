@@ -43,6 +43,7 @@ class ExpensesController < ApplicationController
   end
 
   def create
+    puts params[:date]
     @categories = Category.all
     @types = Type.all
     @expense = Expense.new safe_params

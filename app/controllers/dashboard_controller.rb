@@ -207,7 +207,7 @@ class DashboardController < ApplicationController
       end
       @options_1 = @options_1.to_json
 
-      #Build data object for chart 2 
+      #Build data object for chart 2
 
       all_types.length.times do |i|
         data_helper =  {
